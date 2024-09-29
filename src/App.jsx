@@ -7,6 +7,7 @@ function App() {
   const [operator, setOperator] = useState('');
   const [secondValue, setSecondValue] = useState('0');
   const [result, setResult] = useState('0');
+  const [storedValue, setStoredValue] = useState('0');
 
   const handleFirstNumberClick = (value) => {
     setFirstValue((prev) => (prev === '0' ? value : prev + value));
@@ -48,12 +49,24 @@ function App() {
   };
 
   const clearFirst = () => {
-    setFirstValue('0'); 
-};
+    setFirstValue('0');
+  };
 
-const clearSecond = () => {
+  const clearSecond = () => {
     setSecondValue('0');
-};
+  };
+
+  const storeValue = () => {
+    setStoredValue(result);
+  };
+
+  const RecallFirst = () => {
+    setFirstValue(storedValue);
+  };
+
+  const RecallSecond = () => {
+    setSecondValue(storedValue);
+  };
 
   return (
     <div className="calculator">
@@ -64,6 +77,7 @@ const clearSecond = () => {
             <button key={i} onClick={() => handleFirstNumberClick(i.toString())}>{i}</button>
           ))}
           <button onClick={clearFirst}>Clear</button>
+          <button onClick={RecallFirst}>Recall</button>
         </div>
       </div>
 
@@ -84,16 +98,17 @@ const clearSecond = () => {
             <button key={i} onClick={() => handleSecondNumberClick(i.toString())}>{i}</button>
           ))}
           <button onClick={clearSecond}>Clear</button>
+          <button onClick={RecallSecond}>Recall</button>
         </div>
       </div>
       <div className="panel answer">
         <p>{result}</p>
         <div>
           <button onClick={calculateResult}>=</button>
+          <button onClick={storeValue}>Store</button>
         </div>
       </div>
     </div>
   )
 }
-
 export default App
