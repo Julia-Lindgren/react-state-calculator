@@ -68,6 +68,24 @@ function App() {
     setSecondValue(storedValue);
   };
 
+  const decimalClick = (isFirstPanel) => {
+    if (isFirstPanel) {
+      setFirstValue((prev) => {
+        if (!prev.includes('.')) {
+          return prev === '0' ? '0.' : prev + '.';
+        }
+        return prev; 
+      });
+    } else {
+      setSecondValue((prev) => {
+        if (!prev.includes('.')) {
+          return prev === '0' ? '0.' : prev + '.';
+        }
+        return prev; 
+      });
+    }
+  };
+
   return (
     <div className="calculator">
       <div className="panel">
@@ -76,6 +94,7 @@ function App() {
           {Array.from({ length: 10 }, (_, i) => (
             <button key={i} onClick={() => handleFirstNumberClick(i.toString())}>{i}</button>
           ))}
+          <button onClick={() => decimalClick(true)}>.</button>
           <button onClick={clearFirst}>Clear</button>
           <button onClick={RecallFirst}>Recall</button>
         </div>
@@ -97,6 +116,7 @@ function App() {
           {Array.from({ length: 10 }, (_, i) => (
             <button key={i} onClick={() => handleSecondNumberClick(i.toString())}>{i}</button>
           ))}
+          <button onClick={() => decimalClick(false)}>.</button>
           <button onClick={clearSecond}>Clear</button>
           <button onClick={RecallSecond}>Recall</button>
         </div>
